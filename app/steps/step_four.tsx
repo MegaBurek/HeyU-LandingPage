@@ -17,7 +17,7 @@ export const StepFour: FC<StepFourProps> = ({}) => {
                 gap: 20
             }}
         >
-            <h1>Thank you for joining our waitlist, we can't wait for your input!</h1>
+            <h1>Thank you for joining our waitlist, we can&apos;t wait for your input!</h1>
         </div>
     );
 }
