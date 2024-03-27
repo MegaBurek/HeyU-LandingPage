@@ -71,22 +71,18 @@ export const StepTwo: FC<StepTwoProps> = ({handleNext}) => {
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                     />
-                    {hasUniversities ? (
-                        <Select
-                            className="w-72"
-                            value={university}
-                            onChange={(e) => setUniversity(e.target.value)}
-                            label="Choose your university"
-                        >
-                            {MOCKED.map((university) => (
-                                <SelectItem key={university.id} value={university.id}>
-                                    {university.label}
-                                </SelectItem>
-                            ))}
-                        </Select>
-                    ) : (
-                        <h1>There are no universities to display</h1>
-                    )}
+                    <Select
+                        className="w-72"
+                        value={university}
+                        onChange={(e) => setUniversity(e.target.value)}
+                        label="Choose your university"
+                    >
+                        {MOCKED.map((university) => (
+                            <SelectItem key={university.id} value={university.id}>
+                                {university.label}
+                            </SelectItem>
+                        ))}
+                    </Select>
                 </div>
                 <Button
                     disabled={fieldsAreEmpty}
