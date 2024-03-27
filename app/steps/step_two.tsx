@@ -9,6 +9,12 @@ export interface StepTwoProps {
     handleNext: () => void
 }
 
+const MOCKED = [
+    {id: 1, label: "Albertson College of Idaho"},
+    {id: 1, label: "New Jersey City University"},
+    {id: 1, label: "East Central University"}
+]
+
 export const StepTwo: FC<StepTwoProps> = ({handleNext}) => {
     const emailInputRef = useRef<string>(null)
     const universityRef = useRef<string>(null)
@@ -72,8 +78,8 @@ export const StepTwo: FC<StepTwoProps> = ({handleNext}) => {
                             onChange={(e) => setUniversity(e.target.value)}
                             label="Choose your university"
                         >
-                            {mappedUniversities.map((university) => (
-                                <SelectItem key={university.value} value={university.value}>
+                            {MOCKED.map((university) => (
+                                <SelectItem key={university.id} value={university.id}>
                                     {university.label}
                                 </SelectItem>
                             ))}
