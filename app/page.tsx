@@ -1,6 +1,6 @@
 "use client"
-import {NextUIProvider} from "@nextui-org/react";
-import React, {useState} from "react";
+import {NextUIProvider, Spinner} from "@nextui-org/react";
+import React, {Suspense, useState} from "react";
 import {StepOne} from "@/app/steps/step_one";
 import {StepTwo} from "@/app/steps/step_two";
 import {StepThree} from "@/app/steps/step_three";
@@ -40,7 +40,9 @@ export default function Home() {
                             <StepOne handleNext={() => setStepper(2)}/>
                         )}
                         {stepper === 2 && (
-                            <StepTwo handleNext={() => setStepper(3)}/>
+                            <Suspense fallback={<Spinner/>}>
+                                <StepTwo handleNext={() => setStepper(3)}/>
+                            </Suspense>
                         )}
                         {stepper === 3 && (
                             <StepThree handleNext={() => setStepper(4)}/>
