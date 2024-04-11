@@ -1,6 +1,7 @@
 import React, {FC} from "react"
-import {Button} from "@nextui-org/button";
 import {Image} from "@nextui-org/react";
+import {HeyULogo} from "@/app/components/heyu_logo";
+import {HeyUButton} from "@/app/components/heyu_button";
 
 export interface StepOneProps {
     handleNext: () => void
@@ -19,21 +20,12 @@ export const StepOne: FC<StepOneProps> = ({handleNext}) => {
                     gap: 20
                 }}
             >
+                <HeyULogo/>
                 <Image
-                    width={1000}
                     alt="Intro video"
                     src="https://nextui-docs-v2.vercel.app/images/hero-card-complete.jpeg"
                 />
-                <Button
-                    size="lg"
-                    onClick={handleNext}
-                    style={{
-                        backgroundColor: "#FECE2F",
-                        fontSize: 18
-                    }}
-                >
-                    Join Waitlist
-                </Button>
+                <HeyUButton handleNext={handleNext} title={"Join waitlist"}/>
             </div>
         </>
     )

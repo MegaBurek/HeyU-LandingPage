@@ -1,4 +1,5 @@
 import React, {FC} from "react"
+import {HeyULogo} from "@/app/components/heyu_logo";
 
 export interface StepFourProps {
 
@@ -17,7 +18,11 @@ export const StepFour: FC<StepFourProps> = ({}) => {
                 gap: 20
             }}
         >
-            <h1>Thank you for joining our waitlist, we can&apos;t wait for your input!</h1>
+            <HeyULogo/>
+            <h1 style={{
+                color: "white",
+                fontSize: 26
+            }}>Thank you for joining our waitlist, we can&apos;t wait for your input!</h1>
         </div>
     );
 }

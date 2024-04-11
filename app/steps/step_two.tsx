@@ -4,6 +4,8 @@ import {Input} from "@nextui-org/react";
 import {Select, SelectSection, SelectItem} from "@nextui-org/react";
 import {useUniversities} from "../useUniversitites";
 import {Spinner} from "@nextui-org/react";
+import {HeyULogo} from "@/app/components/heyu_logo";
+import {HeyUButton} from "@/app/components/heyu_button";
 
 export interface StepTwoProps {
     handleNext: () => void
@@ -48,6 +50,7 @@ export const StepTwo: FC<StepTwoProps> = ({handleNext}) => {
                     gap: 20
                 }}
             >
+                <HeyULogo/>
                 <div
                     className="container"
                     style={{
@@ -84,17 +87,7 @@ export const StepTwo: FC<StepTwoProps> = ({handleNext}) => {
                         ))}
                     </Select>
                 </div>
-                <Button
-                    disabled={fieldsAreEmpty}
-                    size="lg"
-                    onClick={handleNext}
-                    style={{
-                        backgroundColor: "#FECE2F",
-                        fontSize: 18
-                    }}
-                >
-                    Next
-                </Button>
+                <HeyUButton handleNext={handleNext} title={"Next"}/>
             </div>
         </>
     )

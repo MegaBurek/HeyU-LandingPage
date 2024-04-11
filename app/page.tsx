@@ -15,21 +15,8 @@ export default function Home() {
         <div className="flex flex-col min-h-screen">
             <QueryClientProvider client={queryClient}>
                 <NextUIProvider>
-                    <header style={{
-                        position: "fixed",
-                        top: 0,
-                        width: "100%",
-                        height: 80,
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                        zIndex: 1,
-                        background: "#ffffff"
-                    }}>
-                        <img src={"/logo_min.png"} style={{height: 54, width: "auto"}}/>
-                    </header>
                     <main
-                        className="px-4 pt-24 md:px-8 md:pt-24"
+                        className="px-4 pt-4 md:px-8 md:pt-4"
                         style={{
                             display: "flex",
                             justifyContent: "center",
