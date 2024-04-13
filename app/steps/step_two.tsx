@@ -12,17 +12,11 @@ export interface StepTwoProps {
     handleNext: () => void
 }
 
-const MOCKED = [
-    {id: 1, label: "Albertson College of Idaho"},
-    {id: 1, label: "New Jersey City University"},
-    {id: 1, label: "East Central University"}
-]
-
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
 export const StepTwo: FC<StepTwoProps> = ({handleNext}) => {
     const emailInputRef = useRef<HTMLInputElement>(null)
-    const universityRef = useRef<HTMLSelectElement>(null)
+    const universityRef = useRef<HTMLInputElement>(null)
 
     const [emailError, setEmailError] = useState<string | undefined>()
 
@@ -85,19 +79,19 @@ export const StepTwo: FC<StepTwoProps> = ({handleNext}) => {
                         onSubmit={() => universityRef?.current?.focus()}
                     />
                     {emailError && <span id="email-error" style={{color: 'red'}}>{emailError}</span>}
-                    <Select
+                    <Input
                         ref={universityRef}
                         className="w-72"
+                        variant="flat"
+                        label="University"
                         value={university}
                         onChange={(e) => setUniversity(e.target.value)}
-                        label="Choose your university"
-                    >
-                        {MOCKED.map((university) => (
-                            <SelectItem key={university.id} value={university.id}>
-                                {university.label}
-                            </SelectItem>
-                        ))}
-                    </Select>
+                        onSubmit={() => {
+                            if (!fieldsAreEmpty) {
+                                handleNext()
+                            }
+                        }}
+                    />
                 </div>
                 <HeyUButton
                     disabled={fieldsAreEmpty}

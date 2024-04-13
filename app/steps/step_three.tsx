@@ -1,11 +1,10 @@
-import React, {FC, useRef, useState} from "react"
-import {Button} from "@nextui-org/button";
-import {Input, Textarea} from "@nextui-org/react";
-import {Card, CardBody} from "@nextui-org/react";
+import React, {FC, useState} from "react"
+import {Card, CardBody, Input, Textarea} from "@nextui-org/react";
 import {HeyULogo} from "@/app/components/heyu_logo";
 import {HeyUButton} from "@/app/components/heyu_button";
 import {useFormContext} from "@/app/form_context";
 import emailJs from "@emailjs/browser";
+import {Spinner} from "@nextui-org/react";
 
 export interface StepThreeProps {
     handleNext: () => void
@@ -28,9 +27,11 @@ export const StepThree: FC<StepThreeProps> = ({handleNext}) => {
 
     const [payOption, setPayOption] = useState<number | undefined>(undefined)
     const [stepper, setStepper] = useState<number>(1)
+    const [emailLoading, setEmailLoading] = useState<boolean>(false)
 
     const handleSendEmail = async () => {
         const answer3 = payOption ? payOptions.find((x) => x.id === payOption)?.label : answer_3
+        setEmailLoading(true)
         await emailJs.send("service_da6x13d", "template_zjkimb9", {
             from_name: from_name,
             email: email,
@@ -39,6 +40,8 @@ export const StepThree: FC<StepThreeProps> = ({handleNext}) => {
             answer_2: answer_2,
             answer_3: answer3
         })
+        setEmailLoading(false)
+        handleNext()
     }
 
     const fieldsAreEmpty = answer_1?.length === 0 || answer_2?.length === 0 || (answer_3?.length === 0 && !payOption)
@@ -170,18 +173,15 @@ export const StepThree: FC<StepThreeProps> = ({handleNext}) => {
                             >
                                 {payOptions.map((x, index) => (
                                     <Card
-                                        className="
-                                shadow
-                                hover:bg-amber-100
-                                cursor-pointer
-                                "
-                                        style={{
-                                            background: payOption === x.id ? "bg-amber-100" : ""
-                                        }}
-                                        onClick={() => setPayOption(x.id)}
+                                        className={`
+                                            shadow
+                                            hover:bg-amber-100
+                                            cursor-pointer
+                                            ${payOption === x.id ? "bg-amber-100" : "bg-white"}
+                                            `}
                                         key={`payOption-${index}`}
                                     >
-                                        <CardBody>
+                                        <CardBody onClick={() => setPayOption(x.id)}>
                                             <p>{x.label}</p>
                                         </CardBody>
                                     </Card>
@@ -205,11 +205,15 @@ export const StepThree: FC<StepThreeProps> = ({handleNext}) => {
                                 onChange={(e) => setAnswer3(e.target.value)}
                             />
                         </div>
-                        <HeyUButton
-                            disabled={fieldsAreEmpty}
-                            handleNext={() => handleSendEmail()}
-                            title={"Next"}
-                        />
+                        {emailLoading ? (
+                            <Spinner color="warning"/>
+                        ) : (
+                            <HeyUButton
+                                disabled={fieldsAreEmpty}
+                                handleNext={() => handleSendEmail()}
+                                title={"Next"}
+                            />
+                        )}
                     </>
                 )}
             </div>
