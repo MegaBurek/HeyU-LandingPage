@@ -1,7 +1,7 @@
 import React, {FC} from "react"
-import {Image} from "@nextui-org/react";
 import {HeyULogo} from "@/app/components/heyu_logo";
 import {HeyUButton} from "@/app/components/heyu_button";
+import {LandingPageVideo} from "@/app/components/landing_page_video";
 
 export interface StepOneProps {
     handleNext: () => void
@@ -21,10 +21,7 @@ export const StepOne: FC<StepOneProps> = ({handleNext}) => {
                 }}
             >
                 <HeyULogo/>
-                <Image
-                    alt="Intro video"
-                    src="https://nextui-docs-v2.vercel.app/images/hero-card-complete.jpeg"
-                />
+                <LandingPageVideo/>
                 <HeyUButton handleNext={handleNext} title={"Join waitlist"}/>
             </div>
         </>

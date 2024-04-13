@@ -30,7 +30,7 @@ export const StepThree: FC<StepThreeProps> = ({handleNext}) => {
     const [emailLoading, setEmailLoading] = useState<boolean>(false)
 
     const handleSendEmail = async () => {
-        const answer3 = payOption ? payOptions.find((x) => x.id === payOption)?.label : answer_3
+        const answer3 = answer_3?.length! > 0 ? answer_3 : payOptions.find((x) => x.id === payOption)?.label
         setEmailLoading(true)
         await emailJs.send("service_da6x13d", "template_zjkimb9", {
             from_name: from_name,

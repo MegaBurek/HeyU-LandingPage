@@ -1,9 +1,5 @@
-import React, {FC, useMemo, useRef, useState} from "react"
-import {Button} from "@nextui-org/button";
+import React, {FC, useRef, useState} from "react"
 import {Input} from "@nextui-org/react";
-import {Select, SelectSection, SelectItem} from "@nextui-org/react";
-// import {useUniversities} from "../useUniversitites";
-import {Spinner} from "@nextui-org/react";
 import {HeyULogo} from "@/app/components/heyu_logo";
 import {HeyUButton} from "@/app/components/heyu_button";
 import {useFormContext} from "@/app/form_context";

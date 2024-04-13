@@ -28,6 +28,16 @@ body {
     }
 }
 
+video {
+    border-radius: 10px;
+    height: 600px;
+    width: 100%;
+
+    @media only screen and (max-width: 991px){
+        height: 500px;
+    }
+}
+
 @layer utilities {
     .text-balance {
         text-wrap: balance;
