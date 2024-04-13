@@ -6,6 +6,7 @@ import {useUniversities} from "../useUniversitites";
 import {Spinner} from "@nextui-org/react";
 import {HeyULogo} from "@/app/components/heyu_logo";
 import {HeyUButton} from "@/app/components/heyu_button";
+import {useFormContext} from "@/app/form_context";
 
 export interface StepTwoProps {
     handleNext: () => void
@@ -17,26 +18,32 @@ const MOCKED = [
     {id: 1, label: "East Central University"}
 ]
 
+const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+
 export const StepTwo: FC<StepTwoProps> = ({handleNext}) => {
-    const emailInputRef = useRef<string>(null)
-    const universityRef = useRef<string>(null)
+    const emailInputRef = useRef<HTMLInputElement>(null)
+    const universityRef = useRef<HTMLSelectElement>(null)
 
-    const [name, setName] = useState<string>("")
-    const [email, setEmail] = useState<string>("")
-    const [university, setUniversity] = useState<string>("")
-    const {data, isFetching} = useUniversities()
+    const [emailError, setEmailError] = useState<string | undefined>()
 
-    const mappedUniversities = useMemo(() => {
-        if (data && data.universities && data.universities.length > 0) {
-            return data.universities.map((university) => ({
-                value: university.id.toString()!,
-                label: university.name!
-            }))
+    const {
+        from_name, setFromName,
+        email, setEmail,
+        university, setUniversity
+    } = useFormContext()
+
+    const handleChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const value = e.target.value
+        setEmail(value)
+
+        if (!emailRegex.test(value)) {
+            setEmailError('Please enter a valid email address')
+        } else {
+            setEmailError(undefined)
         }
-    }, [data])!
+    }
 
-    const fieldsAreEmpty = name.length === 0 || email.length === 0 || university.length === 0
-    const hasUniversities = mappedUniversities && mappedUniversities.length > 0
+    const fieldsAreEmpty = from_name?.length === 0 || email?.length === 0 || university?.length === 0
 
     return (
         <>
@@ -64,17 +71,22 @@ export const StepTwo: FC<StepTwoProps> = ({handleNext}) => {
                         className="w-72"
                         variant="flat"
                         label="Name"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
+                        value={from_name}
+                        onChange={(e) => setFromName(e.target.value)}
+                        onSubmit={() => emailInputRef?.current?.focus()}
                     />
                     <Input
+                        ref={emailInputRef}
                         className="w-72"
                         variant="flat"
                         label="Email"
                         value={email}
-                        onChange={(e) => setEmail(e.target.value)}
+                        onChange={(e) => handleChangeEmail(e)}
+                        onSubmit={() => universityRef?.current?.focus()}
                     />
+                    {emailError && <span id="email-error" style={{color: 'red'}}>{emailError}</span>}
                     <Select
+                        ref={universityRef}
                         className="w-72"
                         value={university}
                         onChange={(e) => setUniversity(e.target.value)}
@@ -87,7 +99,11 @@ export const StepTwo: FC<StepTwoProps> = ({handleNext}) => {
                         ))}
                     </Select>
                 </div>
-                <HeyUButton handleNext={handleNext} title={"Next"}/>
+                <HeyUButton
+                    disabled={fieldsAreEmpty}
+                    handleNext={handleNext}
+                    title={"Next"}
+                />
             </div>
         </>
     )

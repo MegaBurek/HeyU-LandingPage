@@ -4,6 +4,8 @@ import {Input, Textarea} from "@nextui-org/react";
 import {Card, CardBody} from "@nextui-org/react";
 import {HeyULogo} from "@/app/components/heyu_logo";
 import {HeyUButton} from "@/app/components/heyu_button";
+import {useFormContext} from "@/app/form_context";
+import emailJs from "@emailjs/browser";
 
 export interface StepThreeProps {
     handleNext: () => void
@@ -17,14 +19,29 @@ const payOptions = [
 ]
 
 export const StepThree: FC<StepThreeProps> = ({handleNext}) => {
-    const universityLifeQuestionRef = useRef<string>(null)
-    const platformVideoQuestionRef = useRef<string>(null)
+    const {
+        from_name, email, university,
+        answer_1, setAnswer1,
+        answer_2, setAnswer2,
+        answer_3, setAnswer3
+    } = useFormContext()
 
-    const [universityLifeQuestion, setUniversityLifeQuestion] = useState<string>("")
-    const [platformVideoQuestion, setPlatformVideoQuestion] = useState<string>("")
-    const [ownPricing, setOwnPricing] = useState<string>("")
-    const [payOption, setPayOption] = useState<number>(0)
+    const [payOption, setPayOption] = useState<number | undefined>(undefined)
     const [stepper, setStepper] = useState<number>(1)
+
+    const handleSendEmail = async () => {
+        const answer3 = payOption ? payOptions.find((x) => x.id === payOption)?.label : answer_3
+        await emailJs.send("service_da6x13d", "template_zjkimb9", {
+            from_name: from_name,
+            email: email,
+            university: university,
+            answer_1: answer_1,
+            answer_2: answer_2,
+            answer_3: answer3
+        })
+    }
+
+    const fieldsAreEmpty = answer_1?.length === 0 || answer_2?.length === 0 || (answer_3?.length === 0 && !payOption)
 
     return (
         <div
@@ -70,11 +87,15 @@ export const StepThree: FC<StepThreeProps> = ({handleNext}) => {
                             <Textarea
                                 height={150}
                                 variant="flat"
-                                value={universityLifeQuestion}
-                                onChange={(e) => setUniversityLifeQuestion(e.target.value)}
+                                value={answer_1}
+                                onChange={(e) => setAnswer1(e.target.value)}
                             />
                         </div>
-                        <HeyUButton handleNext={() => setStepper(2)} title={"Next"}/>
+                        <HeyUButton
+                            disabled={answer_1?.length === 0}
+                            handleNext={() => setStepper(2)}
+                            title={"Next"}
+                        />
                     </>
                 )}
 
@@ -104,11 +125,15 @@ export const StepThree: FC<StepThreeProps> = ({handleNext}) => {
                                     height: 150
                                 }}
                                 variant="flat"
-                                value={platformVideoQuestion}
-                                onChange={(e) => setPlatformVideoQuestion(e.target.value)}
+                                value={answer_2}
+                                onChange={(e) => setAnswer2(e.target.value)}
                             />
                         </div>
-                        <HeyUButton handleNext={() => setStepper(3)} title={"Next"}/>
+                        <HeyUButton
+                            disabled={answer_2?.length === 0}
+                            handleNext={() => setStepper(3)}
+                            title={"Next"}
+                        />
                     </>
                 )}
 
@@ -150,6 +175,9 @@ export const StepThree: FC<StepThreeProps> = ({handleNext}) => {
                                 hover:bg-amber-100
                                 cursor-pointer
                                 "
+                                        style={{
+                                            background: payOption === x.id ? "bg-amber-100" : ""
+                                        }}
                                         onClick={() => setPayOption(x.id)}
                                         key={`payOption-${index}`}
                                     >
@@ -173,12 +201,15 @@ export const StepThree: FC<StepThreeProps> = ({handleNext}) => {
                             <Input
                                 className="w-72"
                                 variant="flat"
-                                label="Email"
-                                value={ownPricing}
-                                onChange={(e) => setOwnPricing(e.target.value)}
+                                value={answer_3}
+                                onChange={(e) => setAnswer3(e.target.value)}
                             />
                         </div>
-                        <HeyUButton handleNext={handleNext} title={"Next"}/>
+                        <HeyUButton
+                            disabled={fieldsAreEmpty}
+                            handleNext={() => handleSendEmail()}
+                            title={"Next"}
+                        />
                     </>
                 )}
             </div>
