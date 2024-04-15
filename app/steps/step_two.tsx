@@ -40,7 +40,6 @@ export const StepTwo: FC<StepTwoProps> = ({handleNext}) => {
             <div
                 className="container"
                 style={{
-                    paddingTop: 100,
                     display: "flex",
                     flexDirection: "column",
                     alignItems: "center",

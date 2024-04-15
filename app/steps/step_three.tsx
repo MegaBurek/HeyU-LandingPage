@@ -11,10 +11,10 @@ export interface StepThreeProps {
 }
 
 const payOptions = [
-    {id: 1, label: "2$ a month"},
-    {id: 2, label: "20$ a year"},
-    {id: 3, label: "50$ 4 years"},
-    {id: 4, label: "100$ lifetime"}
+    {id: 1, label: "10$ a month"},
+    {id: 2, label: "$30 a month"},
+    {id: 3, label: "$50 a month"},
+    {id: 4, label: "$50+ a month"}
 ]
 
 export const StepThree: FC<StepThreeProps> = ({handleNext}) => {
@@ -69,26 +69,25 @@ export const StepThree: FC<StepThreeProps> = ({handleNext}) => {
                 {stepper === 1 && (
                     <>
                         <div
-                            className="container"
+                            className="container step-container"
                             style={{
                                 display: "flex",
                                 flexDirection: "column",
                                 alignItems: "flex-start",
-                                gap: 5,
-                                marginBottom: 100
+                                gap: 5
                             }}
                         >
                             <h1 style={{
-                                color: "white",
-                                fontSize: 35,
                                 marginBottom: 10,
                                 lineHeight: "1.05",
-                                textAlign: "left"
-                            }} className="text-large">
-                                What do you think would make university life easier?
+                                textAlign: "center"
+                            }}>
+                                What do you think would improve your university experience?
                             </h1>
                             <Textarea
-                                height={150}
+                                style={{
+                                    height: 150
+                                }}
                                 variant="flat"
                                 value={answer_1}
                                 onChange={(e) => setAnswer1(e.target.value)}
@@ -105,23 +104,20 @@ export const StepThree: FC<StepThreeProps> = ({handleNext}) => {
                 {stepper === 2 && (
                     <>
                         <div
-                            className="container"
+                            className="container step-container"
                             style={{
                                 display: "flex",
                                 flexDirection: "column",
                                 alignItems: "flex-start",
-                                gap: 5,
-                                marginBottom: 100
+                                gap: 5
                             }}
                         >
                             <h1 style={{
-                                color: "white",
-                                fontSize: 35,
                                 marginBottom: 10,
                                 lineHeight: "1.05",
                                 textAlign: "left"
-                            }} className="text-large">
-                                Based on the video, what can this platform can do for you?
+                            }}>
+                                Based on the video, what features would you like in this platform?
                             </h1>
                             <Textarea
                                 style={{
@@ -143,22 +139,19 @@ export const StepThree: FC<StepThreeProps> = ({handleNext}) => {
                 {stepper === 3 && (
                     <>
                         <div
-                            className="container"
+                            className="container step-container"
                             style={{
                                 display: "flex",
                                 flexDirection: "column",
                                 alignItems: "flex-start",
-                                gap: 5,
-                                marginBottom: 100
+                                gap: 5
                             }}
                         >
                             <h1 style={{
-                                color: "white",
-                                fontSize: 35,
                                 marginBottom: 10,
                                 lineHeight: "1.05",
                                 textAlign: "left"
-                            }} className="text-large">
+                            }}>
                                 How much would you pay for such a platform?
                             </h1>
                             <div
@@ -177,7 +170,7 @@ export const StepThree: FC<StepThreeProps> = ({handleNext}) => {
                                             shadow
                                             hover:bg-amber-100
                                             cursor-pointer
-                                            ${payOption === x.id ? "bg-amber-100" : "bg-white"}
+                                            ${payOption === x.id ? "bg-amber-200" : "bg-white"}
                                             `}
                                         key={`payOption-${index}`}
                                     >
@@ -191,12 +184,9 @@ export const StepThree: FC<StepThreeProps> = ({handleNext}) => {
 
                             <h1 style={{
                                 marginTop: 20,
-                                color: "white",
-                                fontSize: 35,
-                                marginBottom: 10,
-                                textAlign: "left"
-                            }} className="text-large">
-                                Or suggest your own pricing ...
+                                marginBottom: 10
+                            }}>
+                                Or suggest your own pricing
                             </h1>
                             <Input
                                 className="w-72"

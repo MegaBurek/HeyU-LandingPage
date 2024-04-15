@@ -21,7 +21,26 @@ export const StepOne: FC<StepOneProps> = ({handleNext}) => {
                 }}
             >
                 <HeyULogo/>
-                <LandingPageVideo/>
+                <div style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    gap: 5
+                }}>
+                    <h1 style={{
+                        color: "white",
+                        marginBottom: 10,
+                        textAlign: "center",
+                        lineHeight: "1.2"
+                    }}>
+                        Hey you! <br/>
+                        We're building something new. <br/>
+                        Sign up for early beta access!
+                    </h1>
+                    <LandingPageVideo/>
+                </div>
+
                 <HeyUButton handleNext={handleNext} title={"Join waitlist"}/>
             </div>
         </>

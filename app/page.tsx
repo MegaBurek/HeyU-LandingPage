@@ -29,7 +29,9 @@ export default function Home() {
                         className="px-4 pt-4 md:px-8 md:pt-4"
                         style={{
                             display: "flex",
+                            flexDirection: "column",
                             justifyContent: "center",
+                            alignItems: "center",
                             width: "100%",
                             minHeight: "100vh"
                         }}>

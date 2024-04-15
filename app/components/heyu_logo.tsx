@@ -14,7 +14,8 @@ export const HeyULogo: FC<HeyULogoProps> = ({}) => {
                 display: "block",
                 lineHeight: 0,
                 maxWidth: "100%",
-                position: "relative"
+                position: "relative",
+                marginBottom: 20
             }}
         >
                     <span
