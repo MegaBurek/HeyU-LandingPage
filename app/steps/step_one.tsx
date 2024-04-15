@@ -35,7 +35,7 @@ export const StepOne: FC<StepOneProps> = ({handleNext}) => {
                         lineHeight: "1.2"
                     }}>
                         Hey you! <br/>
-                        We're building something new. <br/>
+                        We&apos;re building something new. <br/>
                         Sign up for early beta access!
                     </h1>
                     <LandingPageVideo/>
